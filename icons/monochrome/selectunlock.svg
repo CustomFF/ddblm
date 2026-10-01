@@ -1,0 +1,25 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+<style>
+path:not([stroke]), circle, rect, polygon {
+  fill: context-fill black;
+}
+path[stroke] {
+  fill: none;
+  stroke: context-fill black;
+}
+line, [stroke] {
+  stroke: context-fill black;
+}
+@media (prefers-color-scheme: dark) {
+  path:not([stroke]), circle, rect, polygon {
+    fill: context-fill white;
+  }
+  path[stroke] {
+    fill: none;
+    stroke: context-fill white;
+  }
+  line, [stroke] {
+    stroke: context-fill white;
+  }
+}
+</style><path d="m2.3164 0.25586c-1.0708 0-1.9512 0.87845-1.9512 1.9492v19.199c0 1.0708 0.88036 1.9512 1.9512 1.9512h19.199c1.0708 0 1.9492-0.88036 1.9492-1.9512v-19.199c0-1.0708-0.87845-1.9492-1.9492-1.9492h-19.199zm1.3105 2.5273h16.578c0.41481 0 0.73242 0.31761 0.73242 0.73242v16.578c0 0.41481-0.31761 0.73438-0.73242 0.73438h-16.578c-0.41481 0-0.73438-0.31956-0.73438-0.73438v-16.578c0-0.41481 0.31956-0.73242 0.73438-0.73242zm1.2148 0.69922a1.25 1.25 0 0 0-0.88281 0.36719 1.25 1.25 0 0 0 0 1.7676l14.637 14.637a1.25 1.25 0 0 0 1.7676 0 1.25 1.25 0 0 0 0-1.7676l-14.637-14.637a1.25 1.25 0 0 0-0.88477-0.36719zm7.0723 1.1211a5 5 0 0 0-2.9375 0.95508l1.9004 1.9004a2.3832 2.3832 0 0 1 1.0371-0.23828 2.3832 2.3832 0 0 1 2.3848 2.3828v1.0273h-0.25195l5.0703 5.0703v-3.8301a1.2413 1.2413 0 0 0-1.2422-1.2402h-0.96094v-1.0293a5 5 0 0 0-5-4.998zm-5 5.5078v0.51953h-0.95898a1.2413 1.2413 0 0 0-1.2422 1.2402v5.8945a1.2413 1.2413 0 0 0 1.2422 1.2422h9.8555l-8.8965-8.8965z" opacity=".8" style="paint-order:markers fill stroke"/></svg>

@@ -1,0 +1,25 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+<style>
+path:not([stroke]), circle, rect, polygon {
+  fill: context-fill black;
+}
+path[stroke] {
+  fill: none;
+  stroke: context-fill black;
+}
+line, [stroke] {
+  stroke: context-fill black;
+}
+@media (prefers-color-scheme: dark) {
+  path:not([stroke]), circle, rect, polygon {
+    fill: context-fill white;
+  }
+  path[stroke] {
+    fill: none;
+    stroke: context-fill white;
+  }
+  line, [stroke] {
+    stroke: context-fill white;
+  }
+}
+</style><path d="m10.709 0.49023c-3.6559-5.1094e-4 -6.6197 2.9633-6.6191 6.6191v9.5879c-2.7e-5 0.95476 0.20652 1.8982 0.60547 2.7656 1.0805 2.348 3.429 3.8521 6.0137 3.8516h2.8379c3.2066 2.04e-4 5.9521-2.2984 6.5156-5.4551 0.06865-0.38357 0.10329-0.77245 0.10352-1.1621v-9.5879c5.11e-4 -3.6559-2.9633-6.6197-6.6191-6.6191h-2.543zm0 2.4551h1.1639v6.7676h-5.328v-2.6035c-3.05e-4 -2.1807 1.9834-4.1644 4.1641-4.1641zm-4.1641 9.2227h11.166v4.5293c-1.86e-4 1.1977-0.59898 2.3348-1.5 3.1172-0.73911 0.64175-1.6816 1.0451-2.6641 1.0449h-2.8379c-0.98127 1.37e-4 -1.9234-0.40067-2.6621-1.041-0.90257-0.78241-1.5018-1.9221-1.502-3.1211v-0.45312z" opacity=".8" stroke-linecap="round" stroke-linejoin="bevel" stroke-width="2.5"/></svg>

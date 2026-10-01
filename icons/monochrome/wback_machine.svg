@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" version="1.1">
+<style>
+path:not([stroke]), circle, rect, polygon {
+  fill: context-fill black;
+}
+path[stroke] {
+  fill: none;
+  stroke: context-fill black;
+}
+line, [stroke] {
+  stroke: context-fill black;
+}
+@media (prefers-color-scheme: dark) {
+  path:not([stroke]), circle, rect, polygon {
+    fill: context-fill white;
+  }
+  path[stroke] {
+    fill: none;
+    stroke: context-fill white;
+  }
+  line, [stroke] {
+    stroke: context-fill white;
+  }
+}
+</style><g transform="scale(0.15384615)"><path d="m76.762 4.0234-64.137 15.309 3.7852 3.6152h120.99l2.5312-4.457zm-58.977 22.365v12.043h120.43v-12.043zm4.5938 15.482-1.4961 0.66211c-2.0179 35.76-1.8149 50.231 0.17969 86.473l2.1543 0.60547h7.1797l2.0352-0.60547c0.87967-28.839 1.1854-57.6-0.59961-86.408l-1.4355-0.72656zm30.967 0-1.4961 0.66211c-2.0162 35.73-1.8159 50.163 0.17774 86.473l2.1562 0.60547h7.1797l2.0371-0.60547c0.87789-28.839 1.1806-57.6-0.59961-86.408l-1.4375-0.72656zm39.57 0-1.4961 0.66211c-2.0245 35.771-1.8072 50.406 0.17773 86.473l2.1543 0.60547h7.1816l2.0371-0.60547c0.87635-28.839 1.1835-57.6-0.60156-86.408l-1.4356-0.72656zm32.688 0-1.4961 0.66211c-2.0262 35.8-1.8062 50.473 0.17969 86.473l2.1543 0.60547h7.1816l2.0352-0.60547c0.87789-28.839 1.1806-57.6-0.59961-86.408l-1.4355-0.72656zm-107.82 92.902v8.6016h120.43v-8.6016zm-5.1582 10.322-2e-3 6.8809h130.75v-6.8809z" fill-rule="evenodd" stroke-width="1.7204"/></g></svg>

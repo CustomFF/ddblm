@@ -1,0 +1,25 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+<style>
+path:not([stroke]), circle, rect, polygon {
+  fill: context-fill black;
+}
+path[stroke] {
+  fill: none;
+  stroke: context-fill black;
+}
+line, [stroke] {
+  stroke: context-fill black;
+}
+@media (prefers-color-scheme: dark) {
+  path:not([stroke]), circle, rect, polygon {
+    fill: context-fill white;
+  }
+  path[stroke] {
+    fill: none;
+    stroke: context-fill white;
+  }
+  line, [stroke] {
+    stroke: context-fill white;
+  }
+}
+</style><g transform="matrix(3.7932 0 0 3.793 -.025646 -.11846)"><path transform="rotate(44)" d="m2.4493-1.9548a2.9 2.9 0 0 0-0.84909 2.0508 2.9 2.9 0 0 0 2.8998 2.9001 2.9 2.9 0 0 0 2.8997-2.9002 2.9 2.9 0 0 0-2.8998-2.9001 2.9 2.9 0 0 0-2.0506 0.84933zm1.8393-0.052245a0.30546 0.30546 0 0 1 0.4866 0.10426l1.1886 2.7642a0.46515 0.46515 0 0 1-0.41981 0.64869l-2.1893 0.033981a0.4418 0.4418 0 0 1-0.41015-0.62266l1.2712-2.8284a0.30546 0.30546 0 0 1 0.072836-0.10002z" opacity=".3913" stroke-width=".26364" style="paint-order:markers fill stroke"/><path transform="matrix(1.1117 0 0 1.1117 -.33391 -.36862)" d="m4.5789 2.0844-0.95775 2.5312a0.4184 0.4184 166.92 0 1-0.67727 0.15737l-1.4377-1.3459a0.3974 0.3974 100.66 0 1 0.124-0.65909l2.5897-1.0359a0.27476 0.27476 44.462 0 1 0.35902 0.35234z" opacity=".8" stroke-linecap="square" stroke-linejoin="bevel" stroke-width=".023714" style="paint-order:markers fill stroke"/></g></svg>
