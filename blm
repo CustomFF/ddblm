@@ -474,7 +474,9 @@ def generate_css(rules, selectors):
         " max-width: 0 !important;"
         " }\n"
     )
-    css += "toolbarbutton { margin: 1px !important; padding: 2px !important; }\n\n"
+    # Only the bookmarks toolbar's buttons: a bare toolbarbutton rule
+    # restyled every button of the browser (toolbars, panels, menus).
+    css += "#PlacesToolbarItems > toolbarbutton { margin: 1px !important; padding: 2px !important; }\n\n"
     css += "\n".join(rules)
 
     if selectors:
