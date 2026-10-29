@@ -115,4 +115,4 @@ Protocol proxy).
 
 ## License
 
-[MIT](LICENSE) © DayDve.
+[MPL-2.0](LICENSE) © DayDve.
