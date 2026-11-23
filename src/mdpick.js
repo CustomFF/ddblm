@@ -1,6 +1,6 @@
 // @label: Export to Markdown
-// @desc: Выбор блоков страницы мышью (как в uBlock Origin) и копирование или сохранение их в Markdown
-// @desc-en: Pick page blocks with the mouse (like uBlock Origin's picker) and copy or save them as Markdown
+// @desc: Сохраняет выбранные блоки страницы в Markdown: в буфер обмена или в файл
+// @desc-en: Saves selected page blocks as Markdown: to the clipboard or to a file
 // @icon: markdown.svg
 
 (function() {
