@@ -20,7 +20,7 @@
 | `edit.js` | Edit mode | Включает `designMode` для правки текста на странице |
 | `kpfinder.js` | KPFinder | Ищет фильмы на Кинопоиске (нужен API-токен) |
 | `logins.js` | Search logins/passwords | Ищет логины для сайта на BugMeNot и Google |
-| `mdpick.js` | Blocks to Markdown | Выбирает блоки страницы мышью или по выделению и копирует или сохраняет их в Markdown |
+| `mdpick.js` | Export to Markdown | Выбирает блоки страницы мышью или по выделению и копирует или сохраняет их в Markdown |
 | `passwords.js` | Show passwords | Показывает пароли, скрытые звёздочками |
 | `qr.js` | QR | Генерирует QR-код для текущей страницы |
 | `safeselect.js` | Safe select | Отключает ссылки, чтобы можно было выделять текст |

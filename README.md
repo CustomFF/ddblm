@@ -20,7 +20,7 @@ A bookmark that runs JavaScript instead of opening a URL. Click it and the scrip
 | `edit.js` | Edit mode | Toggles `designMode` to edit text on the page |
 | `kpfinder.js` | KPFinder | Searches Kinopoisk for movies (API token required) |
 | `logins.js` | Search logins/passwords | Looks up site logins on BugMeNot and Google |
-| `mdpick.js` | Blocks to Markdown | Picks page blocks with the mouse or from the selection and copies or saves them as Markdown |
+| `mdpick.js` | Export to Markdown | Picks page blocks with the mouse or from the selection and copies or saves them as Markdown |
 | `passwords.js` | Show passwords | Reveals passwords hidden behind asterisks |
 | `qr.js` | QR | Generates a QR code for the current page |
 | `safeselect.js` | Safe select | Disables links so text can be selected over them |
