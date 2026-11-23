@@ -1,49 +1,63 @@
 [![English](https://img.shields.io/badge/English-blue?style=flat&logo=readme&logoColor=white)](README.md)
-[![12 букмарклетов](https://img.shields.io/badge/12-букмарклетов-ff69b4?style=flat&logo=bookmarklets&logoColor=white)](https://daydve.github.io/ddblm/)
+[![13 букмарклетов](https://img.shields.io/badge/13-букмарклетов-ff69b4?style=flat&logo=bookmarklets&logoColor=white)](https://daydve.github.io/ddblm/)
 
-# ddblm — мои букмарклеты
+# ddblm
 
-Коллекция букмарклетов, которые я собирал, писал и переписывал годами. Плюс небольшой
-CLI-хелпер (`blm`), который облегчает их разработку и управление ими.
+Моя коллекция букмарклетов и `blm`, небольшая CLI-утилита для их сборки и управления.
 
-Живая галерея: **https://daydve.github.io/ddblm/**
+**Галерея:** https://daydve.github.io/ddblm/
 
 ## Что такое букмарклет
 
-Букмарклет — это обычная закладка браузера, в которой вместо ссылки хранится небольшой
-JS-сниппет. Нажал на неё — и скрипт выполняется прямо на текущей странице.
+Закладка, которая вместо ссылки выполняет JavaScript. Нажал — скрипт сработал на текущей странице. Без установки, разрешений и магазина расширений.
 
-В отличие от расширений, букмарклету не нужны установка, разрешения и магазин приложений.
-Перетащил на панель — и всё работает.
+## Букмарклеты
 
-## Про эту коллекцию
-
-С десяток букмарклетов, которые я собирал и переписывал для себя годами. Никакого великого
-плана — просто маленькие скрипты, каждый на своё дело, запускаются с панели закладок.
-Что именно делает каждый — в таблице ниже.
-
-## Поддержка браузеров
-
-Букмарклеты — это чистый JS, поэтому работать они должны в любом браузере, где есть
-поддержка `javascript:`-закладок. За хромоподобные браузеры с их «правилами безопасности»
-я не ручаюсь и не проверял.
-
-Сам я пользуюсь Firefox, поэтому дополнительные плюшки — кастомные иконки на панели
-закладок и аккуратная тема `userChrome.css` — сделаны именно для него.
+| Файл | Название | Что делает |
+|---|---|---|
+| `copy.js` | Copy element text | Копирует текст любого элемента по клику |
+| `ddg.js` | Search on DuckDuckGo | Повторяет текущий поиск в DuckDuckGo |
+| `edit.js` | Edit mode | Включает `designMode` для правки текста на странице |
+| `kpfinder.js` | KPFinder | Ищет фильмы на Кинопоиске (нужен API-токен) |
+| `logins.js` | Search logins/passwords | Ищет логины для сайта на BugMeNot и Google |
+| `mdpick.js` | Blocks to Markdown | Выбирает блоки страницы мышью или по выделению и копирует или сохраняет их в Markdown |
+| `passwords.js` | Show passwords | Показывает пароли, скрытые звёздочками |
+| `qr.js` | QR | Генерирует QR-код для текущей страницы |
+| `safeselect.js` | Safe select | Отключает ссылки, чтобы можно было выделять текст |
+| `telegram.js` | Send to Telegram | Отправляет ссылку или выделенное в Telegram |
+| `undisable.js` | unDisable element | Принудительно включает неактивные элементы |
+| `unlock.js` | unlock right click | Снимает запрет на выделение и правый клик |
+| `wback.js` | WBack Machine | Меню Wayback Machine: архив, последняя версия, сохранить |
 
 ## Использование
 
-Открой [галерею](https://daydve.github.io/ddblm/), включи панель закладок (`Ctrl+Shift+B`)
-и перетащи нужную карточку (иконка + название) на неё. Если букмарклету нужен API-токен —
-сначала впиши его в поле на карточке.
+1. Открой [галерею](https://daydve.github.io/ddblm/).
+2. Включи панель закладок (`Ctrl+Shift+B` в Firefox).
+3. Перетащи карточку (иконка + название) на панель.
 
-Интерфейс галереи двуязычный: по умолчанию английский, `?lang=ru` — русский. Там же лежит
-готовая тема `userChrome.css` для Firefox.
+Если букмарклету нужен API-токен — впиши его в поле на карточке перед перетаскиванием.
+
+Язык интерфейса: английский по умолчанию, `?lang=ru` — русский.
+
+## Поддержка браузеров
+
+Букмарклеты — чистый JavaScript, работают в любом браузере с поддержкой `javascript:`-закладок. Проверены только в Firefox.
+
+Дополнительные штуки (кастомные иконки на панели закладок и тема `userChrome.css`) только для Firefox.
 
 ## Структура репозитория
 
-Главное в этом репозитории — букмарклеты в `src/*.js`. Каждый файл начинается с
-мета-комментариев (название, описание, иконка):
+```
+src/          Исходники букмарклетов
+icons/        SVG-иконки (24×24, адаптивные к теме)
+templates/    Шаблоны для новых букмарклетов
+docs/         Результат сборки (GitHub Pages)
+blm           CLI
+```
+
+### Метаданные букмарклета
+
+Каждый `src/*.js` начинается с мета-комментариев:
 
 ```js
 // @label: Copy element text
@@ -52,68 +66,41 @@ JS-сниппет. Нажал на неё — и скрипт выполняет
 // @icon: copy_element_text.svg
 ```
 
-Иконки лежат в `icons/`, шаблоны для новых букмарклетов — в `templates/`.
+Опциональные поля: `@token`, `@token-desc`, `@token-desc-en`, `@token-link`.
 
-### Список букмарклетов
+`@desc` — русское описание, `@desc-en` — английское. Если `@desc-en` нет, `@desc` используется для обоих языков.
 
-| Файл | Название | Что делает |
-|---|---|---|
-| `copy.js` | Copy element text | Копирует текст любого элемента по клику |
-| `ddg.js` | Search on DuckDuckGo | Повторяет текущий поиск в DuckDuckGo |
-| `edit.js` | Edit mode | Включает `designMode` — редактирование текста на странице |
-| `kpfinder.js` | KPFinder | Поиск фильмов по базе Кинопоиска (нужен API-токен) |
-| `logins.js` | Search logins/passwords | Ищет логины для сайта на BugMeNot и Google |
-| `passwords.js` | Show passwords | Показывает пароли, скрытые звёздочками |
-| `qr.js` | QR | Генерирует QR-код для текущей страницы |
-| `safeselect.js` | Safe select | Отключает ссылки, чтобы можно было выделять текст |
-| `telegram.js` | Send to Telegram | Отправляет ссылку или выделенный текст в Telegram |
-| `undisable.js` | unDisable element | Принудительно включает неактивные элементы |
-| `unlock.js` | unlock right click | Снимает запрет на выделение и правый клик |
-| `wback.js` | WBack Machine | Меню Wayback Machine: архив, последняя версия, сохранить |
+## CLI `blm`
 
-## Хелпер `blm`
-
-`blm` — не суть этого репозитория, а мой инструмент для работы с букмарклетами. Он
-минифицирует JS в `javascript:` URL (понимает шаблонные литералы, регулярки и экранирует
-`#` для безопасности URL), собирает галерею и тему для Firefox, помогает создавать и
-править букмарклеты.
-
-Требования: Python 3.8+.
+Требуется Python 3.8+. Других зависимостей нет.
 
 ```bash
-./blm config set ff_profile ~/.mozilla/firefox/xxxx.default-release
-./blm build           # src/*.js → docs/index.html + docs/blm_panel.css
-./blm patchff         # прокинуть иконки и CSS в профиль Firefox
-```
-
-### Команды
-
-```text
-build        Собрать index.html + blm_panel.css из src/
-list         Список букмарклетов (файл, название, иконка)
-add <name>   Создать новый букмарклет из шаблона
-edit <name>  Открыть букмарклет в редакторе
-rm <name>    Удалить букмарклет
-config       Конфиг: print / set / get / reset
-patchff      Пропатчить профиль Firefox (симлинки + userChrome.css)
-get          git pull
-put [-m MSG] build + git add + commit + push
+./blm build            # src/*.js → docs/index.html + docs/blm_panel.css
+./blm list             # список букмарклетов
+./blm add <name>       # новый букмарклет из шаблона
+./blm edit <name>      # открыть в $EDITOR
+./blm rm <name>        # удалить
+./blm config           # print / set / get / reset
+./blm patchff          # прокидывает иконки и CSS в профиль Firefox
+./blm get              # git pull
+./blm put -m "msg"     # build + commit + push
 ```
 
 ### Конфиг
 
-Хранится в `~/.config/blm/config.json`:
+`~/.config/blm/config.json`:
 
 | Ключ | Описание |
 |---|---|
 | `ff_profile` | Путь к профилю Firefox |
-| `editor` | Редактор для `blm edit` (по умолчанию `$EDITOR` или `nano`) |
+| `editor` | Редактор для `blm edit` |
 | `author` | Имя автора для новых букмарклетов |
 
-Также в репозитории есть две отдельные утилиты вне CLI: `patch_icon.py` (адаптирует
-SVG-иконки под светлую/тёмную тему Firefox) и `firefox_rdp_proxy.py` (прокси для Firefox
-Remote Debugging Protocol).
+### Отдельные утилиты
+
+- `patch_icon.py`: адаптирует SVG из Inkscape под светлую/тёмную тему Firefox
+- `firefox_rdp_proxy.py`: прокси для Firefox Remote Debugging Protocol
 
 ## Лицензия
 
-[MPL-2.0](LICENSE) © DayDve.
+[MPL-2.0](LICENSE) © DayDve

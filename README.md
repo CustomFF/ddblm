@@ -1,49 +1,63 @@
 [![Русский](https://img.shields.io/badge/Русский-blue?style=flat&logo=readme&logoColor=white)](README.ru.md)
-[![12 bookmarklets](https://img.shields.io/badge/12-bookmarklets-ff69b4?style=flat&logo=bookmarklets&logoColor=white)](https://daydve.github.io/ddblm/)
+[![13 bookmarklets](https://img.shields.io/badge/13-bookmarklets-ff69b4?style=flat&logo=bookmarklets&logoColor=white)](https://daydve.github.io/ddblm/)
 
-# ddblm — my bookmarklets
+# ddblm
 
-A collection of bookmarklets I've been collecting, writing and rewriting for years, plus a small
-CLI helper (`blm`) that makes developing and managing them easier.
+My collection of bookmarklets, plus `blm`, a small CLI for building and managing them.
 
-Live gallery: **https://daydve.github.io/ddblm/**
+**Gallery:** https://daydve.github.io/ddblm/
 
 ## What is a bookmarklet
 
-A bookmarklet is an ordinary browser bookmark that stores a small JS snippet instead of a URL.
-Click it and the script runs on the current page.
+A bookmark that runs JavaScript instead of opening a URL. Click it and the script runs on the current page. No installation, no permissions, no extension store.
 
-Unlike browser extensions, a bookmarklet needs no installation, no permissions and no add-on
-store. Drag it onto the toolbar and it just works.
+## Bookmarklets
 
-## About this collection
-
-A dozen or so bookmarklets I've gathered and rewritten over the years for my own use. No grand
-plan — each is a small, single-purpose script you run from the bookmarks toolbar. What each one
-does is in the table below.
-
-## Browser support
-
-The bookmarklets are plain JS, so they should work in any browser that supports
-`javascript:` bookmarks. I don't vouch for, and haven't tested, Chromium-based browsers and
-their "security policies".
-
-I use Firefox myself, which is why the extra bits — custom toolbar icons and a tidy
-`userChrome.css` theme — are built for Firefox.
+| File | Label | What it does |
+|---|---|---|
+| `copy.js` | Copy element text | Copies the text of any element on click |
+| `ddg.js` | Search on DuckDuckGo | Re-runs the current search query in DuckDuckGo |
+| `edit.js` | Edit mode | Toggles `designMode` to edit text on the page |
+| `kpfinder.js` | KPFinder | Searches Kinopoisk for movies (API token required) |
+| `logins.js` | Search logins/passwords | Looks up site logins on BugMeNot and Google |
+| `mdpick.js` | Blocks to Markdown | Picks page blocks with the mouse or from the selection and copies or saves them as Markdown |
+| `passwords.js` | Show passwords | Reveals passwords hidden behind asterisks |
+| `qr.js` | QR | Generates a QR code for the current page |
+| `safeselect.js` | Safe select | Disables links so text can be selected over them |
+| `telegram.js` | Send to Telegram | Sends the link or selected text to Telegram |
+| `undisable.js` | unDisable element | Force-enables disabled elements |
+| `unlock.js` | unlock right click | Removes selection and right-click restrictions |
+| `wback.js` | WBack Machine | Wayback Machine menu: archive, latest, save |
 
 ## Usage
 
-Open the [gallery](https://daydve.github.io/ddblm/), enable the bookmarks toolbar
-(`Ctrl+Shift+B`) and drag a card (icon + name) onto it. If a bookmarklet needs an API token,
-enter it in the field on the card first.
+1. Open the [gallery](https://daydve.github.io/ddblm/).
+2. Enable the bookmarks toolbar (`Ctrl+Shift+B` in Firefox).
+3. Drag a card (icon + name) onto it.
 
-The gallery UI is bilingual: English by default, `?lang=ru` for Russian. It also contains the
-ready-made Firefox `userChrome.css` theme.
+If a bookmarklet requires an API token, enter it in the card's field before dragging.
+
+The gallery UI is bilingual: English by default, `?lang=ru` for Russian.
+
+## Browser support
+
+The bookmarklets are plain JavaScript and should work in any browser that supports `javascript:` bookmarks. Only Firefox has been tested.
+
+The extras (custom toolbar icons and the `userChrome.css` theme) are Firefox-only.
 
 ## Repository layout
 
-The bookmarklets live in `src/*.js` — that's the core of this repo. Each file starts with
-meta-comments (name, description, icon):
+```
+src/          Bookmarklet sources
+icons/        SVG icons (24×24, theme-adaptive)
+templates/    Scaffolding for new bookmarklets
+docs/         Build output (GitHub Pages)
+blm           The CLI
+```
+
+### Bookmarklet metadata
+
+Every `src/*.js` file starts with metadata comments:
 
 ```js
 // @label: Copy element text
@@ -52,67 +66,41 @@ meta-comments (name, description, icon):
 // @icon: copy_element_text.svg
 ```
 
-Icons are in `icons/`, scaffolding templates in `templates/`.
+Optional fields: `@token`, `@token-desc`, `@token-desc-en`, `@token-link`.
 
-### Bookmarklets
+`@desc` is the Russian description; `@desc-en` is the English one. If `@desc-en` is missing, `@desc` is used for both languages.
 
-| File | Label | What it does |
-|---|---|---|
-| `copy.js` | Copy element text | Copy the text of any element on click |
-| `ddg.js` | Search on DuckDuckGo | Re-run the current search in DuckDuckGo |
-| `edit.js` | Edit mode | Toggle `designMode` to edit text on the page |
-| `kpfinder.js` | KPFinder | Search the Kinopoisk database for movies (API token required) |
-| `logins.js` | Search logins/passwords | Look up logins for the site on BugMeNot and Google |
-| `passwords.js` | Show passwords | Reveal passwords hidden behind asterisks |
-| `qr.js` | QR | Generate a QR code for the current page |
-| `safeselect.js` | Safe select | Disable links so text can be selected |
-| `telegram.js` | Send to Telegram | Send the link or selected text to Telegram |
-| `undisable.js` | unDisable element | Force-enable disabled elements |
-| `unlock.js` | unlock right click | Remove selection and right-click restrictions |
-| `wback.js` | WBack Machine | Wayback Machine menu: archival, last saved, save now |
+## The `blm` CLI
 
-## The `blm` helper
-
-`blm` is not the point of this repo — it's my tool for working on the bookmarklets. It minifies
-JS into `javascript:` URLs (handles template literals, regex, and escapes `#` for URL safety),
-builds the gallery and the Firefox theme, and helps scaffold and edit bookmarklets.
-
-Requirements: Python 3.8+.
+Requires Python 3.8+. No other dependencies.
 
 ```bash
-./blm config set ff_profile ~/.mozilla/firefox/xxxx.default-release
-./blm build           # src/*.js → docs/index.html + docs/blm_panel.css
-./blm patchff         # link icons and CSS into the Firefox profile
-```
-
-### Commands
-
-```text
-build        Build index.html + blm_panel.css from src/
-list         List bookmarklets (file, label, icon)
-add <name>   Create a new bookmarklet from the template
-edit <name>  Open a bookmarklet in your editor
-rm <name>    Delete a bookmarklet
-config       Config: print / set / get / reset
-patchff      Patch the Firefox profile (symlinks + userChrome.css)
-get          git pull
-put [-m MSG] build + git add + commit + push
+./blm build            # src/*.js → docs/index.html + docs/blm_panel.css
+./blm list             # list bookmarklets
+./blm add <name>       # scaffold a new bookmarklet from the template
+./blm edit <name>      # open in $EDITOR
+./blm rm <name>        # delete
+./blm config           # print / set / get / reset
+./blm patchff          # symlink icons and CSS into the Firefox profile
+./blm get              # git pull
+./blm put -m "msg"     # build + commit + push
 ```
 
 ### Config
 
-Stored in `~/.config/blm/config.json`:
+Stored at `~/.config/blm/config.json`:
 
 | Key | Description |
 |---|---|
-| `ff_profile` | Path to the Firefox profile |
-| `editor` | Editor used by `blm edit` (default `$EDITOR` or `nano`) |
+| `ff_profile` | Firefox profile path |
+| `editor` | Editor used by `blm edit` |
 | `author` | Author name for new bookmarklets |
 
-There are also two standalone utilities outside the CLI: `patch_icon.py` (adapts SVG icons
-for Firefox light/dark theme) and `firefox_rdp_proxy.py` (a Firefox Remote Debugging
-Protocol proxy).
+### Standalone tools
+
+- `patch_icon.py`: patches Inkscape SVGs for Firefox light/dark theme
+- `firefox_rdp_proxy.py`: proxy for the Firefox Remote Debugging Protocol
 
 ## License
 
-[MPL-2.0](LICENSE) © DayDve.
+[MPL-2.0](LICENSE) © DayDve
