@@ -7,8 +7,8 @@
     if (window.__mdpick) { window.__mdpick(); return; }
 
     const T = /^ru\b/i.test(navigator.language)
-        ? { copy: "Копировать", save: "Сохранить", cancel: "Отмена", imgs: "С картинками", n: "Выбрано: ", copied: "Скопировано", saved: "Сохранено", hint: "Клик: выбрать или снять блок" }
-        : { copy: "Copy", save: "Save", cancel: "Cancel", imgs: "With images", n: "Selected: ", copied: "Copied", saved: "Saved", hint: "Click: pick or unpick a block" };
+        ? { copy: "Копировать", save: "Сохранить", cancel: "Отмена", imgs: "С картинками", tabs: "Определять таблицы", n: "Выбрано: ", copied: "Скопировано", saved: "Сохранено", hint: "Клик: выбрать или снять блок" }
+        : { copy: "Copy", save: "Save", cancel: "Cancel", imgs: "With images", tabs: "Detect tables", n: "Selected: ", copied: "Copied", saved: "Saved", hint: "Click: pick or unpick a block" };
 
     /* ---------- HTML → Markdown ---------- */
 
@@ -16,7 +16,7 @@
     const SP = "\uE000", TAB = "\uE001", EMPTY = "\uE002";
     const SKIP = /^(SCRIPT|STYLE|NOSCRIPT|TEMPLATE|SVG|CANVAS|IFRAME|OBJECT|BUTTON|INPUT|SELECT|TEXTAREA|LINK|META)$/;
     const INLINE = { STRONG: "**", B: "**", EM: "*", I: "*", CITE: "*", DFN: "*", S: "~~", DEL: "~~", STRIKE: "~~", MARK: "==" };
-    let imgs = true;
+    let imgs = true, tabs = false;
 
     const clean = s => s.replace(/ {2,}/g, " ").replace(/[ \t]+\n/g, "\n").replace(/\n[ \t]+/g, "\n")
         .replace(/(?:\\\n){2,}/g, "\n\n").replace(/\\\n(?=\n|$)/g, "\n").replace(/(^|\n)\\\n/g, "$1").replace(/\n{3,}/g, "\n\n").trim().replace(/\\$/, "");
@@ -55,13 +55,29 @@
     };
 
     const table = rows => {
-        const grid = rows.filter(visible).map(r => [...r.cells].flatMap(c =>
-            [inner(c).replace(/\n+/g, "<br>").replace(/\|/g, "\\|") || " ", ...Array(Math.max(0, (c.colSpan || 1) - 1)).fill(" ")]));
+        const grid = rows.filter(visible).map(r => cellsOf(r).flatMap(c =>
+            [inner(c).replace(/\n+/g, /^T[DH]$/.test(c.tagName) ? "<br>" : " ").replace(/\|/g, "\\|") || " ", ...Array(Math.max(0, (c.colSpan || 1) - 1)).fill(" ")]));
         if (!grid.length) return "";
         const w = Math.max(...grid.map(r => r.length));
         const line = r => "| " + Array.from({ length: w }, (_, i) => r[i] || " ").join(" | ") + " |";
         return para([line(grid[0]), "|" + " --- |".repeat(w), ...grid.slice(1).map(line)].join("\n"));
     };
+
+    /* a table made of divs: a row is 3+ blocks side by side (only with "detect tables") */
+    const cellsOf = el => {
+        if (el.cells) return [...el.cells];
+        const cs = !tabs || el.run ? [] : [...el.children].filter(c => isBlockEl(c) && visible(c)), r = cs.map(c => c.getBoundingClientRect());
+        return cs.length > 2 && r.every((q, i) => !i || q.left >= r[i - 1].right - 1 && q.top < r[i - 1].bottom && q.bottom > r[i - 1].top) ? cs : null;
+    };
+    /* its header: the nearest row above, outside its own rows, with cells at the same x */
+    const headOf = row => {
+        const L = cellsOf(row).map(c => c.getBoundingClientRect().left);
+        const fits = e => (c => c && c.length === L.length && c.every((x, i) => Math.abs(x.getBoundingClientRect().left - L[i]) < 4))(cellsOf(e));
+        let a = row;
+        for (let i = 0; i < 4 && a.parentElement; i++) a = a.parentElement;
+        return [...a.querySelectorAll("*")].reverse().find(e => e.parentElement !== row.parentElement && e.compareDocumentPosition(row) & 4 && !e.contains(row) && fits(e)) || row;
+    };
+    const divTable = rows => { const h = headOf(rows[0]); return table(rows.includes(h) ? rows : [h, ...rows]); };
 
     function md(n) {
         if (n.nodeType === 3) return escText(n.nodeValue.replace(/[ \t\n\r\f\u00A0]+/g, " "));
@@ -98,6 +114,8 @@
         }
         const disp = getComputedStyle(el).display;
         if (/^inline/.test(disp) || disp === "contents") return kids(el);
+        const rows = tabs && [...el.children].filter(isBlockEl);
+        if (rows && rows.length > 1 && rows.every(cellsOf)) return divTable(rows);
         const s = inner(el);
         /* a paragraph that starts like markup must stay text */
         return para(tag === "P" ? s.replace(/^(#{1,6} |[-+*] |\d+[.)] |>|=+$|-{3,}$)/, "\\$1") : s);
@@ -114,6 +132,10 @@
                 while (els[i + 1] && els[i + 1].tagName === "TR" && els[i + 1].closest("table") === t) rows.push(els[++i]);
                 const head = t.tHead ? t.tHead.rows[0] : t.rows[0];
                 s = clean(table(rows[0] === head ? rows : [head, ...rows]));
+            } else if (cellsOf(el)) {
+                const rows = [el];
+                while (els[i + 1] && els[i + 1].parentElement === el.parentElement && cellsOf(els[i + 1])) rows.push(els[++i]);
+                s = clean(divTable(rows));
             } else s = clean(el.run ? el.nodes.map(md).join("") : md(el));
             if (!s) continue;
             const sameList = prev && el.tagName === "LI" && prev.tagName === "LI" && prev.parentElement === el.parentElement;
@@ -249,6 +271,7 @@
     <div class="bar">
         <div class="n"></div>
         <label><input type="checkbox" checked>${T.imgs}</label>
+        <label><input type="checkbox">${T.tabs}</label>
         <div class="row"><button class="p">${T.copy}</button><button>${T.save}</button><button>${T.cancel}</button></div>
         <div class="h">${T.hint}</div>
     </div>`;
@@ -335,7 +358,7 @@
         setTimeout(() => URL.revokeObjectURL(a.href), 10000);
     };
 
-    const result = () => { imgs = $("input").checked; return toMarkdown(sorted()); };
+    const result = () => { [imgs, tabs] = [...root.querySelectorAll("input")].map(c => c.checked); return toMarkdown(sorted()); };
     bCopy.onclick = async () => { await copyText(result()); exit(T.copied); };
     bSave.onclick = () => { saveText(result()); exit(T.saved); };
     bCancel.onclick = () => exit();
