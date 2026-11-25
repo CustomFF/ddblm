@@ -212,7 +212,10 @@
     const composed = shadowRoots => sel.getComposedRanges ? sel.getComposedRanges({ shadowRoots }) : Array.from({ length: sel.rangeCount }, (_, i) => sel.getRangeAt(i));
     const saved = sel.rangeCount && (c => sel.direction === "backward"
         ? [c.endContainer, c.endOffset, c.startContainer, c.startOffset]
-        : [c.startContainer, c.startOffset, c.endContainer, c.endOffset])(composed([...document.querySelectorAll("*")].map(e => e.shadowRoot).filter(Boolean))[0]);
+        : [c.startContainer, c.startOffset, c.endContainer, c.endOffset])(composed([...document.querySelectorAll("*")].map(e => {
+            /* add-on UI (Tridactyl) in the page throws on access */
+            try { return e.shadowRoot; } catch (x) {}
+        }).filter(Boolean))[0]);
     for (const r of composed([]).map(toRange)) {
         const its = r.collapsed ? [] : items(r, true);
         if (!its.length) continue;
